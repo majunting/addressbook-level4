@@ -18,6 +18,8 @@ public class Remark {
         this.remark = remark.trim();
     }
 
+    public Remark get() { return this; }
+
 
     @Override
     public String toString() {
