@@ -1,14 +1,13 @@
 //@@author Junting
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.NameStartsWithAlphabetPredicate;
 
 /**
  * find persons whose name starts with a certain alphabet
  */
 
-public class ListAlphabetCommand extends Command{
+public class ListAlphabetCommand extends Command {
 
     public static final String COMMAND_WORD = "listalp";
     public static final String COMMAND_ALIAS = "la";
