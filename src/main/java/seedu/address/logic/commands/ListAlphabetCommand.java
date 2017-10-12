@@ -24,8 +24,9 @@ public class ListAlphabetCommand extends Command{
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
-        return null;
+    public CommandResult execute() {
+        model.updateFilteredPersonList(predicate);
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
     @Override
