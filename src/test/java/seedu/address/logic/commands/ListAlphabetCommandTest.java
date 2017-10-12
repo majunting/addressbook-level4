@@ -61,7 +61,8 @@ public class ListAlphabetCommandTest {
         return command;
     }
 
-    private void assertCommandSuccess(ListAlphabetCommand command, String expectedMessage, List<ReadOnlyPerson> expectedList) {
+    private void assertCommandSuccess(ListAlphabetCommand command, String expectedMessage,
+                                      List<ReadOnlyPerson> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
