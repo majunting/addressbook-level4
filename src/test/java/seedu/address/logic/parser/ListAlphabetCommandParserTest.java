@@ -15,13 +15,14 @@ public class ListAlphabetCommandParserTest {
 
     @Test
     public void parser_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "   ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListAlphabetCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "   ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListAlphabetCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsListAlphabetCommand() {
         ListAlphabetCommand expectedAlphabetCommand =
                 new ListAlphabetCommand(new NameStartsWithAlphabetPredicate(("a")));
-                assertParseSuccess(parser, "a", expectedAlphabetCommand);
+        assertParseSuccess(parser, "a", expectedAlphabetCommand);
     }
 }

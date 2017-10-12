@@ -54,6 +54,9 @@ public class ListAlphabetCommandTest {
         assertCommandSuccess(command, expectedMessage, Collections.emptyList());
     }
 
+    /**
+     * Parses {@code userInput} into a {@code ListAlphabetCommand}.
+     */
     private ListAlphabetCommand prepareCommand(String input) {
         ListAlphabetCommand command =
                 new ListAlphabetCommand(new NameStartsWithAlphabetPredicate(input));
@@ -61,6 +64,12 @@ public class ListAlphabetCommandTest {
         return command;
     }
 
+    /**
+     * Asserts that {@code command} is successfully executed, and<br>
+     *     - the command feedback is equal to {@code expectedMessage}<br>
+     *     - the {@code FilteredList<ReadOnlyPerson>} is equal to {@code expectedList}<br>
+     *     - the {@code AddressBook} in model remains the same after executing the {@code command}
+     */
     private void assertCommandSuccess(ListAlphabetCommand command, String expectedMessage,
                                       List<ReadOnlyPerson> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
