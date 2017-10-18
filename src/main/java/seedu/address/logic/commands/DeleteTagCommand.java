@@ -3,15 +3,13 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
  * deletes a tag from all persons in addressbook.
  */
-public class DeleteTagCommand extends Command{
+public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteTag";
     public static final String COMMAND_ALIAS = "dt";
@@ -29,7 +27,7 @@ public class DeleteTagCommand extends Command{
     }
 
     @Override
-    public CommandResult execute() throws CommandException{
+    public CommandResult execute() throws CommandException {
         try {
             model.deleteTag(new Tag(keyword));
             return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
