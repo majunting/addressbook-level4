@@ -1,6 +1,9 @@
 /** @@author: Junting **/
 package seedu.address.logic.commands;
 
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
@@ -8,11 +11,6 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
-import java.util.*;
-
-import static seedu.address.model.tag.Tag.isValidTagName;
 
 /**
  * deletes a tag from all persons in addressbook.
@@ -37,13 +35,13 @@ public class DeleteTagCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        boolean isTagDeleted = false;
+        boolean isTagDeleted;
         try {
             isTagDeleted = deleteTag(new Tag(keyword));
         } catch (IllegalValueException ive) {
             throw new CommandException(" ");
         }
-        if(isTagDeleted) {
+        if (isTagDeleted) {
             return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
         } else {
             return new CommandResult(MESSAGE_DELETE_TAG_FAILED);
@@ -57,6 +55,12 @@ public class DeleteTagCommand extends Command {
                 && this.keyword.equals(((DeleteTagCommand) other).keyword)); // state check
     }
 
+    /**
+     * executes delete tag action, returns a boolean value to indicate status of tag deletion
+     * @param tag
+     * @return whether a tag is deleted successfully
+     * @throws CommandException
+     */
     private boolean deleteTag(Tag tag) throws CommandException {
         boolean isTagDeleted = false;
         List<ReadOnlyPerson> personList = model.getFilteredPersonList();
@@ -64,7 +68,7 @@ public class DeleteTagCommand extends Command {
         for (int i = 0; i < personList.size(); i++) {
             ReadOnlyPerson originalPerson = personList.get(i);
             Set<Tag> tagList = originalPerson.tagProperty().get().toSet();
-            if(tagList.contains(tag)) {
+            if (tagList.contains(tag)) {
                 tagList.remove(tag);
                 isTagDeleted = true;
             }
