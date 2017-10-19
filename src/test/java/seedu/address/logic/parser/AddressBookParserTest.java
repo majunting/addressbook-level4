@@ -15,22 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FavoriteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemarkCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameStartsWithAlphabetPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.predicates.AnyContainsKeywordsPredicate;
@@ -86,6 +74,20 @@ public class AddressBookParserTest {
         FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
                 FavoriteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new FavoriteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parserCommand_listalp() throws Exception {
+        ListAlphabetCommand command = (ListAlphabetCommand) parser.parseCommand(
+                ListAlphabetCommand.COMMAND_WORD + " a");
+        assertEquals(new ListAlphabetCommand(new NameStartsWithAlphabetPredicate(("a"))), command);
+    }
+
+    @Test
+    public void parserCommand_deleteTag() throws Exception {
+        DeleteTagCommand command = (DeleteTagCommand) parser.parseCommand(
+                DeleteTagCommand.COMMAND_WORD + " keyword");
+        assertEquals(new DeleteTagCommand("keyword"), command);
     }
 
     @Test
