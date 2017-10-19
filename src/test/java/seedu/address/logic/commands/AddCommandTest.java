@@ -130,10 +130,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteTag(Tag tag) throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-        @Override
         public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
             fail("This method should not be called.");
             return null;
