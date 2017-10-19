@@ -3,8 +3,16 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+
+import java.util.*;
+
+import static seedu.address.model.tag.Tag.isValidTagName;
 
 /**
  * deletes a tag from all persons in addressbook.
@@ -20,6 +28,7 @@ public class DeleteTagCommand extends Command {
             + "Example: " + COMMAND_WORD + " friends";
 
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Tag deleted.";
+    private static final String MESSAGE_DELETE_TAG_FAILED = "Tag deletion unsuccessful.";
     private final String keyword;
 
     public DeleteTagCommand(String keyword) {
@@ -28,13 +37,16 @@ public class DeleteTagCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
+        boolean isTagDeleted = false;
         try {
-            model.deleteTag(new Tag(keyword));
-            return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
+            isTagDeleted = deleteTag(new Tag(keyword));
         } catch (IllegalValueException ive) {
-            throw new CommandException("Illegal value exception");
-        } catch (PersonNotFoundException pnfe) {
-            throw new CommandException("Person not found exception");
+            throw new CommandException(" ");
+        }
+        if(isTagDeleted) {
+            return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_DELETE_TAG_FAILED);
         }
     }
 
@@ -43,5 +55,32 @@ public class DeleteTagCommand extends Command {
         return other == this //short circuit if same object
                 || (other instanceof DeleteTagCommand // instanceof handles nulls
                 && this.keyword.equals(((DeleteTagCommand) other).keyword)); // state check
+    }
+
+    private boolean deleteTag(Tag tag) throws CommandException {
+        boolean isTagDeleted = false;
+        List<ReadOnlyPerson> personList = model.getFilteredPersonList();
+
+        for (int i = 0; i < personList.size(); i++) {
+            ReadOnlyPerson originalPerson = personList.get(i);
+            Set<Tag> tagList = originalPerson.tagProperty().get().toSet();
+            if(tagList.contains(tag)) {
+                tagList.remove(tag);
+                isTagDeleted = true;
+            }
+            Person newPerson = new Person(originalPerson.getName(), originalPerson.getPhone(),
+                    originalPerson.getEmail(), originalPerson.getAddress(),
+                    originalPerson.getRemark(), tagList);
+            try {
+                model.updatePerson(originalPerson, newPerson);
+            }
+            catch (DuplicatePersonException dpe) {
+                throw new CommandException("duplicate person found in addressbook");
+            }
+            catch (PersonNotFoundException pnfe) {
+                throw new CommandException("person not found exception");
+            }
+        }
+        return isTagDeleted;
     }
 }
