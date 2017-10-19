@@ -38,8 +38,8 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
 
         // displays a popup window to show number of persons found
-        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-                getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+//        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
+//                getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
 
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
