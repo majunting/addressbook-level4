@@ -1,4 +1,4 @@
-//@@author A0144294A
+//@@author majunting
 package seedu.address.model.person.predicates;
 
 import java.util.function.Predicate;

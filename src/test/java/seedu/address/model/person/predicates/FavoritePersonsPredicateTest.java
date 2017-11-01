@@ -1,12 +1,16 @@
+//@@author majunting
 package seedu.address.model.person.predicates;
-
-import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FavoritePersonsPredicateTest {
+import org.junit.Test;
 
+import seedu.address.testutil.PersonBuilder;
+
+public class FavoritePersonsPredicateTest {
+    private boolean FAVORITE = true;
+    private boolean UNFAVORITE = false;
     @Test
     public void test_equal() {
         String firstPredicateKeyword = "favorite";
@@ -33,7 +37,24 @@ public class FavoritePersonsPredicateTest {
     }
 
     @Test
-    public void test_() {
+    public void test_ableToFindPersons_returnsTrue() {
+        // favorite_returnsTrue
+        FavoritePersonsPredicate predicate = new FavoritePersonsPredicate("favorite");
+        assertTrue(predicate.test(new PersonBuilder().withFavorite(FAVORITE).build()));
 
+        //unfavorite_returnsTrue
+        predicate = new FavoritePersonsPredicate("unfavorite");
+        assertTrue(predicate.test(new PersonBuilder().withFavorite(UNFAVORITE).build()));
+    }
+
+    @Test
+    public void test_unableToFindPerson_returnsFalse() {
+        // favorite_returnsFalse
+        FavoritePersonsPredicate predicate = new FavoritePersonsPredicate("unfavorite");
+        assertTrue(predicate.test(new PersonBuilder().withFavorite(FAVORITE).build()));
+
+        // unfavorite_returnFalse
+        predicate = new FavoritePersonsPredicate("favorite");
+        assertTrue(predicate.test(new PersonBuilder().withFavorite(UNFAVORITE).build()));
     }
 }
