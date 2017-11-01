@@ -42,6 +42,7 @@ public class PersonBuilder {
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
             this.person = new Person(defaultName, defaultPhone,
                     defaultEmail, defaultAddress, defaultBirthday, defaultRemark, defaultTags);
+            this.person.setFavorite(new Favorite(DEFAULT_FAVORITE));
         } catch (IllegalValueException ive) {
             throw new AssertionError("Default person's values are invalid.");
         }
@@ -131,7 +132,7 @@ public class PersonBuilder {
         return this;
     }
 
-    //@@author A0144294A
+    //@@author majunting
     /**
      * Sets the {@code Favorite} of the {@code Person} that we are building
      */
