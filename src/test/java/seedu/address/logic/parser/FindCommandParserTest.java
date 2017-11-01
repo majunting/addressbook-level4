@@ -15,12 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.AnyContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.PhoneContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.*;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandParserTest {
@@ -62,6 +57,11 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand5 =
                 new FindCommand(new TagContainsKeywordsPredicate(tags));
 
+        FindCommand expectedFindCommand6 =
+                new FindCommand(new FavoritePersonsPredicate("favorite"));
+        FindCommand expectedFindCommand7 =
+                new FindCommand(new FavoritePersonsPredicate("unfavorite"));
+
         // with name prefix
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " n/Alice", expectedFindCommand1);
 
@@ -78,6 +78,9 @@ public class FindCommandParserTest {
         //with an tag prefix
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " t/friends", expectedFindCommand5);
 
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " favorite", expectedFindCommand6);
+
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " unfavorite", expectedFindCommand6);
 
     }
 
