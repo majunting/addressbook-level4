@@ -51,10 +51,10 @@ public class FavoritePersonsPredicateTest {
     public void test_unableToFindPerson_returnsFalse() {
         // favorite_returnsFalse
         FavoritePersonsPredicate predicate = new FavoritePersonsPredicate("unfavorite");
-        assertTrue(predicate.test(new PersonBuilder().withFavorite(FAVORITE).build()));
+        assertFalse(predicate.test(new PersonBuilder().withFavorite(FAVORITE).build()));
 
         // unfavorite_returnFalse
         predicate = new FavoritePersonsPredicate("favorite");
-        assertTrue(predicate.test(new PersonBuilder().withFavorite(UNFAVORITE).build()));
+        assertFalse(predicate.test(new PersonBuilder().withFavorite(UNFAVORITE).build()));
     }
 }

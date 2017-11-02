@@ -57,11 +57,6 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand5 =
                 new FindCommand(new TagContainsKeywordsPredicate(tags));
 
-        FindCommand expectedFindCommand6 =
-                new FindCommand(new FavoritePersonsPredicate("favorite"));
-        FindCommand expectedFindCommand7 =
-                new FindCommand(new FavoritePersonsPredicate("unfavorite"));
-
         // with name prefix
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " n/Alice", expectedFindCommand1);
 
@@ -77,10 +72,6 @@ public class FindCommandParserTest {
 
         //with an tag prefix
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " t/friends", expectedFindCommand5);
-
-        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " favorite", expectedFindCommand6);
-
-        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " unfavorite", expectedFindCommand6);
 
     }
 
