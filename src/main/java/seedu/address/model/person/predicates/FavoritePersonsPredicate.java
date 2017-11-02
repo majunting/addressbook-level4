@@ -11,8 +11,8 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class FavoritePersonsPredicate implements Predicate<ReadOnlyPerson> {
     private final boolean favorite;
     public FavoritePersonsPredicate(String keyword) {
-        if(keyword.equals("favorite"))  this.favorite = true;
-        else    this.favorite = false;
+        if (keyword.equals("favorite")) { this.favorite = true; }
+        else { this.favorite = false; }
     }
 
     @Override
