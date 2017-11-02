@@ -73,7 +73,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 return new FindCommand(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
             } else if (tags.isPresent()) {
                 return new FindCommand(new TagContainsKeywordsPredicate(tags.get()));
-            } else if (trimmedArgs.equals("favorite") || trimmedArgs.equals("unfavorite")) {
+            } else if ("favorite".equals(trimmedArgs) || "unfavorite".equals(trimmedArgs)) {
                 return new FindCommand(new FavoritePersonsPredicate(trimmedArgs));
             } else {
                 keywords = trimmedArgs.split("\\s+");
