@@ -22,8 +22,8 @@ public class LocateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the route from the given address to  "
             + "the address of the specified contact .\n"
             + "Parameters: index address\n"
-            + "Example: " + COMMAND_WORD + "1" + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25";
-    private static final String MESSAGE_SUCCESS = "Located person %1$s";
+            + "Example: " + COMMAND_WORD + "1 " + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25";
+    public static final String MESSAGE_SUCCESS = "Located person %1$s";
 
     private final Index index;
     private final String address;
@@ -42,7 +42,7 @@ public class LocateCommand extends Command {
         }
 
         ReadOnlyPerson personToLocate = lastShownList.get(index.getZeroBased());
-        EventsCenter.getInstance().post(new BrowserPanelLocateEvent(personToLocate.getAddress().toString(), address));
+        EventsCenter.getInstance().post(new BrowserPanelLocateEvent(address, personToLocate.getAddress().toString()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
     }
 
