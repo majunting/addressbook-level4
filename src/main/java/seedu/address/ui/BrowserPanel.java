@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -10,9 +9,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.BrowserPanelLocateEvent;
+import seedu.address.commons.events.ui.PersonFacebookOpenEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -22,14 +21,14 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String DEFAULT_PAGE = "default.html";
-    public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
+
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h&dg=dbrw&newdg=1";
     public static final String GOOGLE_MAP_URL_PREFIX = "https://www.google.com/maps/search/?api=1&query=";
     public static final String GOOGLE_MAP_DIR_URL_PREFIX = "https://www.google.com.sg/maps/dir/";
     public static final String GOOGLE_MAP_URL_SUFFIX = "/";
     public static final String GOOGLE_MAP_URL_END = "?dg=dbrw&newdg=1";
-
+    public static final String FACEBOOK_PREFIX = "https://m.facebook.com/";
+    public static final String DEFAULT_PAGE = "http://www.nus.edu.sg/";
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
@@ -61,6 +60,9 @@ public class BrowserPanel extends UiPart<Region> {
                 + GOOGLE_MAP_URL_END);
     }
     //@@author
+    private void loadFacebookPage(ReadOnlyPerson person) {
+        loadPage(FACEBOOK_PREFIX + person.getFacebook().value);
+    }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -70,8 +72,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+        loadPage(DEFAULT_PAGE);
     }
 
     /**
@@ -94,4 +95,10 @@ public class BrowserPanel extends UiPart<Region> {
         loadLocatePage(event.getStartAddress(), event.getEndAddress());
     }
     //@@author
+    @Subscribe
+    private void handlePersonFacebookOpenEvent(PersonFacebookOpenEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadFacebookPage(event.getNewSelection());
+    }
+
 }
