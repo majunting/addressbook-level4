@@ -4,9 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.BrowserPanel.GOOGLE_MAP_URL_PREFIX;
-import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
+import static seedu.address.ui.BrowserPanel.*;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
@@ -16,18 +14,24 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.MainApp;
+import seedu.address.commons.events.ui.BrowserPanelLocateEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.StringUtil;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
+    private BrowserPanelLocateEvent locateEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
+    private String startAddress = "Clementi";
+    private String endAddress = "NUS";
+
     @Before
     public void setUp() {
         selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0));
+        locateEventStub = new BrowserPanelLocateEvent(startAddress, endAddress);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -50,4 +54,22 @@ public class BrowserPanelTest extends GuiUnitTest {
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
     }
+
+    //@@author majunting
+    @Test
+    public void displayLocate() throws Exception {
+        // default web page
+        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
+
+        postNow(locateEventStub);
+        URL expectedLocateUrl = new URL(GOOGLE_MAP_DIR_URL_PREFIX
+                + StringUtil.partiallyEncode(startAddress) + GOOGLE_MAP_URL_SUFFIX
+                + StringUtil.partiallyEncode(endAddress) + GOOGLE_MAP_URL_SUFFIX
+                + GOOGLE_MAP_URL_END);
+
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedLocateUrl, browserPanelHandle.getLoadedUrl());
+    }
+    //@@author
 }

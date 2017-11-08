@@ -28,6 +28,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String GOOGLE_MAP_URL_PREFIX = "https://www.google.com/maps/search/?api=1&query=";
     public static final String GOOGLE_MAP_DIR_URL_PREFIX = "https://www.google.com.sg/maps/dir/";
     public static final String GOOGLE_MAP_URL_SUFFIX = "/";
+    public static final String GOOGLE_MAP_URL_END = "?dg=dbrw&newdg=1";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -56,7 +57,8 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadLocatePage(String start, String end) {
         loadPage(GOOGLE_MAP_DIR_URL_PREFIX
                 + StringUtil.partiallyEncode(start) + GOOGLE_MAP_URL_SUFFIX
-                + StringUtil.partiallyEncode(end) + GOOGLE_MAP_URL_SUFFIX);
+                + StringUtil.partiallyEncode(end) + GOOGLE_MAP_URL_SUFFIX
+                + GOOGLE_MAP_URL_END);
     }
     //@@author
 
