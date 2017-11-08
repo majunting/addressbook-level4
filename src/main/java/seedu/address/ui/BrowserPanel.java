@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.BrowserPanelLocateEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -25,6 +26,8 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h&dg=dbrw&newdg=1";
     public static final String GOOGLE_MAP_URL_PREFIX = "https://www.google.com/maps/search/?api=1&query=";
+    public static final String GOOGLE_MAP_DIR_URL_PREFIX = "https://www.google.com.sg/maps/dir/";
+    public static final String GOOGLE_MAP_URL_SUFFIX = "/";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -48,6 +51,14 @@ public class BrowserPanel extends UiPart<Region> {
                 + StringUtil.partiallyEncode(person.getAddress().value)
                     + GOOGLE_SEARCH_URL_SUFFIX);
     }
+
+    //@@author majunting
+    private void loadLocatePage(String start, String end) {
+        loadPage(GOOGLE_MAP_DIR_URL_PREFIX
+                + StringUtil.partiallyEncode(start) + GOOGLE_MAP_URL_SUFFIX
+                + StringUtil.partiallyEncode(end) + GOOGLE_MAP_URL_SUFFIX);
+    }
+    //@@author
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -73,4 +84,12 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection().person);
     }
+
+    //@@author majunting
+    @Subscribe
+    private void handleBrowserPanelLocateEvent(BrowserPanelLocateEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadLocatePage(event.getStartAddress(), event.getEndAddress());
+    }
+    //@@author
 }
