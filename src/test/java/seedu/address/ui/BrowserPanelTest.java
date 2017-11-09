@@ -11,7 +11,6 @@ import static seedu.address.ui.BrowserPanel.GOOGLE_MAP_URL_END;
 import static seedu.address.ui.BrowserPanel.GOOGLE_MAP_URL_PREFIX;
 import static seedu.address.ui.BrowserPanel.GOOGLE_MAP_URL_SUFFIX;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
 
@@ -19,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
-import seedu.address.MainApp;
 import seedu.address.commons.events.ui.BrowserPanelLocateEvent;
 import seedu.address.commons.events.ui.PersonFacebookOpenEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
