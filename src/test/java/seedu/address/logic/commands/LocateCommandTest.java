@@ -65,7 +65,7 @@ public class LocateCommandTest {
         command.setData(model, new CommandHistory(), new UndoRedoStack());
 
         try {
-           command.execute();
+            command.execute();
         } catch (CommandException ce) {
             assertEquals(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
         }
