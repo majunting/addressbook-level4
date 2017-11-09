@@ -82,7 +82,7 @@ public class BrowserPanelTest extends GuiUnitTest {
     @Test
     public void displayLocate() throws Exception {
         // default web page
-        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        URL expectedDefaultPageUrl = new URL(DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         postNow(locateEventStub);

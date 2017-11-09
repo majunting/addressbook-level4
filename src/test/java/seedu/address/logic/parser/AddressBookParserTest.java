@@ -154,10 +154,8 @@ public class AddressBookParserTest {
     //@@author majunting
     @Test
     public void parseCommand_locate() throws Exception {
-        LocateCommand command = (LocateCommand) parser.parseCommand(
-                LocateCommand.COMMAND_WORD + "1" + PREFIX_ADDRESS + "clementi");
-        assertEquals(parser.parseCommand(LocateCommand.COMMAND_WORD + "1"
-                + PREFIX_ADDRESS + "clementi"), command);
+        assertTrue(parser.parseCommand(LocateCommand.COMMAND_WORD + " 1 "
+                + PREFIX_ADDRESS + "clementi") instanceof LocateCommand);
     }
     //@@author
 
