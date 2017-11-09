@@ -139,6 +139,7 @@ Returns any person having tags `cs2103`
 * `find e/example.com` +
 Returns any person having email containing `example.com`
 
+// tag::listalp[]
 === Searching all persons whose name starts with a certain alphabet: `listalp`
 
 Finds persons whose names start with the given alphabet. +
@@ -147,6 +148,7 @@ Format: `listalp ALPHABET`
 ****
 * The search is case sensitive.
 ****
+// end::listalp[]
 
 === Finding the route from the specified address to a person in the addressbook: `locate`
 

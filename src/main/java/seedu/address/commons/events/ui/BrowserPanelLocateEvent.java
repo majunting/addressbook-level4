@@ -3,6 +3,9 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+/**
+ * Indicates a request for Direction search in browser panel
+ */
 public class BrowserPanelLocateEvent extends BaseEvent {
 
     private final String start;
@@ -14,7 +17,9 @@ public class BrowserPanelLocateEvent extends BaseEvent {
     }
 
     @Override
-    public String toString() { return this.getClass().getSimpleName(); }
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 
     public String getEndAddress() {
         return end;

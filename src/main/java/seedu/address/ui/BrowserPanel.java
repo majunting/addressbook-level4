@@ -53,6 +53,11 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     //@@author majunting
+    /**
+     * Loads google map url with a search of direction from start address to end address
+     * @param start start address
+     * @param end end address
+     */
     private void loadLocatePage(String start, String end) {
         loadPage(GOOGLE_MAP_DIR_URL_PREFIX
                 + StringUtil.partiallyEncode(start) + GOOGLE_MAP_URL_SUFFIX
