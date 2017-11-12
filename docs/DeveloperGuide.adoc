@@ -387,6 +387,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::backupstorage[]
 === Storage with back up
 
 Upon the first-time run of this application, user is provided with a sample list of people, provided by link:{repoURL}/src/main/java/seedu/address/storage/model/util/SampleDataUtil.java[`SampleDataUtil.java`]. This is to give the user an idea of how the working application should look like.
@@ -430,7 +431,9 @@ private Model initModelWithBackup(Storage storage, UserPrefs userPrefs) {
 ----
 
 Back up file is kept up-to-date by updating itself when an AddressBookChangedEvent is raised.
+// end::backupstorage[]
 
+// tag::group[]
 === Grouping
 
 The grouping function is created to allow user to better organise his contacts.
@@ -460,6 +463,10 @@ public CommandResult executeUndoableCommand() throws CommandException {
 }
 ----
 
+// end::group[]
+
+
+// tag::favorite[]
 === Favorite
 
 The Favorite function is created for frequent users who have have certain "close contacts" and
@@ -473,6 +480,8 @@ In order to implement such feature, two things need to be implemented:
 A favorite class is implemented and used by Person class. A person object does not construct with a favorite object but it is
 able to setFavorite a new favorite object.
 A favorite object is different from other attribute object is that it just contains a simple boolean property.
+
+image::FavoriteClassDiagram.png[width="200"]
 
 To favorite a person in the list, a favorite command is implemented. The favorite command follows the same parser logic
 as `delete` command, which is to parse the index of the person to favorite. Hence, the favoriteCommand also extends
@@ -504,6 +513,10 @@ And for UI, a simple label is created and `setVisible` to `true` for any index t
 favorited. The labels are `setGraphic` to followed image:
 
 image::heart.png[width="40"]
+
+In the contact+ pro, it looks like:
+
+image::nameWithHeart.png[width="120"]
 
 ==== Sorting
 
@@ -544,6 +557,8 @@ Edit a person, Add a person or Favorite a person.
 == Birthday Detail
 
 A birthday detail is implemented under the Person class as Birthday. Users will add the birthday in along with the add command.
+It is a compulsory attribute like the Name, Phone, Email, Address of the Person class. It's implementation is similar as well.
+
 
 === Description
 
@@ -552,6 +567,15 @@ Format: b/[dd/mm/yyyy]
 === Full solution
 
 See this http://github.com/NgSuli/main[PR] for the full solution.
+
+==== Design Considerations
+**Aspect:** Should this be an optional attribute instead?
+**Alternative 1(current choice):** It is easier to implement it as an compulsory field.
+**Pros:** Adding the birthday details makes the AddressBook more personal.
+**Cons:** Users have no choice but to key in the birthday detail.
+**Alternative 2:** Make the birthday attribute optional.
+**Pros:** Allows the user freedom to decide what they want in the addressbook.
+**Cons:** Slightly more tedious to implement.
 
 
 == Documentation
@@ -1068,6 +1092,7 @@ Use cse ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The addressbook will only work with english text.
+.  The addressbook should be easy enough for new users to understand and use (i.e. no complicated commands)
 
 {More to be added}
 
