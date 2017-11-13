@@ -1,3 +1,4 @@
+
 package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
@@ -43,6 +44,8 @@ public class BrowserPanelTest extends GuiUnitTest {
     private String startAddress = "Clementi";
     private String endAddress = "NUS";
 
+
+
     @Before
     public void setUp() {
         dummy = new Person(ALICE);
@@ -54,13 +57,12 @@ public class BrowserPanelTest extends GuiUnitTest {
         searchMajorEvent = new SearchMajorEvent(dummy.getMajor().value);
         searchNameEvent = new SearchNameEvent(dummy.getName().fullName);
 
-
-
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
     }
+
     //@@author heiseish
     @Test
     public void display() throws Exception {
