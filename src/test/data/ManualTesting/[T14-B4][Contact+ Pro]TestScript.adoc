@@ -13,7 +13,11 @@ Run the programme and the list of sample data should be loaded into the app.
 
 ==== Locate Command
 
-etc
+To navigate from a starting address to the first person's address, type in the command: +
+Type `locate 1 a/nus`
+
+Since `Alex Yeoh` is the first person in the list, the browser panel should display the recommended route
+from `nus` to Alex's address, which is `Blk 30 Geylang Street 29, #06-40`.
 
 ==== Favorite Command
 
@@ -46,6 +50,7 @@ The programme should now list 8 people in total who have major that contains the
 
 To return to all persons view: +
 Type `list`.
+
 
 {Add more test cases here}
 
