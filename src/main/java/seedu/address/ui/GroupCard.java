@@ -5,6 +5,8 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import seedu.address.model.group.Group;
 
 /**
@@ -27,11 +29,19 @@ public class GroupCard extends UiPart<Region> {
     private Label thirdPerson;
     @FXML
     private Label ellipsis;
+    @FXML
+    private Label picture;
+
 
     public GroupCard(Group group, int displayedIndex) {
+        this(group, displayedIndex, new IconImage());
+    }
+
+    public GroupCard(Group group, int displayedIndex, IconImage image) {
         super(FXML);
         this.group = group;
         id.setText(displayedIndex + ". ");
+        initImage(image);
         initEllipsis();
         bindPreview(group);
     }
@@ -74,6 +84,13 @@ public class GroupCard extends UiPart<Region> {
         GroupCard card = (GroupCard) other;
         return id.getText().equals(card.id.getText())
                 && group.equals(card.group);
+    }
+    //@@author heiseish
+    /**
+     * Instantiate image of a person.
+     */
+    private void initImage(IconImage image) {
+        picture.setGraphic(new Circle(25, new ImagePattern(image.getCircleGroup())));
     }
 }
 //@@author

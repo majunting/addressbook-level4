@@ -1,4 +1,6 @@
-/*@@author NgSuli*/
+# NgSuli
+###### /resources/view/WhiteTheme.css
+``` css
 .background {
     -fx-background-color: derive(white, 20%);
     background-color: white; /* Used in the default.html file */
@@ -366,4 +368,4 @@
     -fx-font-size: 11;
 }
 
-/*@@author*/
+```

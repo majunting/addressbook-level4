@@ -52,10 +52,12 @@ public class FavoriteCommand extends UndoableCommand {
             assert false : "The target person cannot be missing";
         }
         Person favoritedPerson = new Person(personToFavorite);
-        favoritedPerson.setFavorite(
-                new Favorite(!personToFavorite.getFavorite().favorite));
+        Favorite newFavorite = new Favorite(!personToFavorite.getFavorite().favorite);
+        favoritedPerson.setFavorite(newFavorite);
 
         return new CommandResult(String.format(MESSAGE_FAVORITE_PERSON_SUCCESS, favoritedPerson));
+
+
     }
 
     @Override

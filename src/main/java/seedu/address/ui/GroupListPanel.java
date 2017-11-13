@@ -31,16 +31,20 @@ public class GroupListPanel extends UiPart<Region> {
     private ListView<GroupCard> groupListView;
 
     public GroupListPanel(ObservableList<Group> groupList) {
+        this(groupList, new IconImage());
+    }
+    public GroupListPanel(ObservableList<Group> groupList, IconImage image) {
         super(FXML);
-        setConnections(groupList);
+        setConnections(groupList, image);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Group> groupList) {
+    private void setConnections(ObservableList<Group> groupList, IconImage image) {
         ObservableList<GroupCard> mappedList = EasyBind.map(
-                groupList, (group) -> new GroupCard(group, groupList.indexOf(group) + 1));
+                groupList, (group) -> new GroupCard(group, groupList.indexOf(group) + 1, image));
         groupListView.setItems(mappedList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
+        groupListView.setStyle("-fx-background-color: white;");
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -60,7 +64,8 @@ public class GroupListPanel extends UiPart<Region> {
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             groupListView.scrollTo(index);
-            groupListView.getSelectionModel().clearAndSelect(index);
+            groupListView.getSelectionModel().clearSelection(index);
+            groupListView.getSelectionModel().select(index);
         });
     }
 
